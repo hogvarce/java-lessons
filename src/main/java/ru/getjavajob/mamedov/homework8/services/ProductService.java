@@ -4,9 +4,6 @@ import ru.getjavajob.mamedov.homework8.models.Product;
 
 import java.util.List;
 
-/**
- * Created by Ganzhenko on 03.10.2016.
- */
 public interface ProductService {
 
     void addProduct(Product product);
@@ -14,5 +11,7 @@ public interface ProductService {
     void update(Product product);
 
     List<Product> getAll();
+
+    List<Product> getSorted(SortMethod method);
 
 }

@@ -1,7 +1,12 @@
 package ru.getjavajob.mamedov.homework8;
 
 import ru.getjavajob.mamedov.homework8.models.Product;
+import ru.getjavajob.mamedov.homework8.services.CSVReaderImpl;
+import ru.getjavajob.mamedov.homework8.services.ProductService;
 import ru.getjavajob.mamedov.homework8.services.ProductServiceImpl;
+import ru.getjavajob.mamedov.homework8.services.SortMethod;
+
+import java.util.List;
 
 /**
  * Created by Ganzhenko on 03.10.2016.
@@ -10,31 +15,23 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Begin shop work!\n ------------------");
 
-        ProductServiceImpl shop = new ProductServiceImpl();
+        ProductService shop = new ProductServiceImpl();
+        CSVReaderImpl csv = new CSVReaderImpl();
 
-        Product product1 = new Product();
-        Product product2 = new Product();
-        Product product3 = new Product();
+        csv.setPathName("src/main/resources/data-example-2.csv");
+        List<String[]> items = csv.read();
 
-        product1.setTitle("Nokia 1280");
-        product1.setPrice(300);
+        for (String[] item : items) {
+            Product product = new Product();
+            product.setTitle(item[0]);
+            product.setPrice(Double.parseDouble(item[2]));
+            shop.addProduct(product);
+        }
 
-        product2.setTitle("IPhone 7");
-        product2.setPrice(70000);
-
-        product3.setTitle("Nexus 6");
-        product3.setPrice(25000);
-
-        shop.addProduct(product1);
-        shop.addProduct(product2);
-        shop.addProduct(product3);
 
         System.out.println(shop.getAll());
 
-        product1.setPrice(1000);
-        shop.update(product1);
-
-        System.out.println(shop.getAll());
+        System.out.println(shop.getSorted(SortMethod.BUBBLE));
 
         System.out.println("End shop work!\n ------------------");
     }

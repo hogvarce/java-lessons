@@ -6,8 +6,11 @@ import java.util.UUID;
 /**
  * Created by Ganzhenko on 03.10.2016.
  */
-public class Product {
+public class Product  implements Comparable<Product>{
     private String id;
+    private int groupId;
+    private int size;
+    private String description;
     private double price;
     private String title;
 
@@ -41,4 +44,14 @@ public class Product {
         this.title = title;
     }
 
+    @Override
+    public int compareTo(Product o) {
+        if (price < o.getPrice()){
+            return -1;
+        } else if (price > o.getPrice()) {
+            return 1;
+        }  else {
+            return 0;
+        }
+    }
 }
