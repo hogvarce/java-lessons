@@ -33,25 +33,38 @@ public class ProductServiceImpl implements ProductService {
     }
 
     public List<Product> getSorted(SortMethod method) {
+        int size = allProduct.size();
         switch(method) {
             case BUBBLE:
-                int size = allProduct.size();
-                Product temp;
                 for (int i = 0; i < size - 1; i++) {
                     for (int j = 0; j < size - i - 1; j++) {
                         Comparable productA = allProduct.get(j);
                         Comparable productB = allProduct.get(j + 1);
                         if (productA.compareTo(productB) > 0){
-                            temp = allProduct.get(j);
-                            allProduct.set(j, allProduct.get(j+1));
-                            allProduct.set(j+1, temp);
+                            allProduct.set(j, (Product) productB);
+                            allProduct.set(j+1,(Product) productA);
                         }
                     }
                 }
                 break;
-            case QUICK:
+            case FAST:
+
                 break;
             case SHELLA:
+                int i, j, step;
+                for (step = size / 2; step > 0; step /= 2) {
+                    for (i = step; i < size; i++) {
+                        Comparable productA = allProduct.get(i);
+                        for (j = i; j >= step; j -= step) {
+                            Comparable productB = allProduct.get(j - step);
+                            if (productA.compareTo(productB) < 0)
+                                allProduct.set(j, (Product) productB);
+                            else
+                                break;
+                        }
+                        allProduct.set(j, (Product) productA);
+                    }
+                }
                 break;
         }
         return allProduct;

@@ -31,7 +31,11 @@ public class Main {
 
         System.out.println(shop.getAll());
 
-        System.out.println(shop.getSorted(SortMethod.BUBBLE));
+        System.out.println("Сортировки...\n");
+
+        System.out.println("Сортировка методом пузырька: \n" + shop.getSorted(SortMethod.BUBBLE));
+
+        System.out.println("Сортировка методом Шелла: \n" + shop.getSorted(SortMethod.SHELLA));
 
         System.out.println("End shop work!\n ------------------");
     }
