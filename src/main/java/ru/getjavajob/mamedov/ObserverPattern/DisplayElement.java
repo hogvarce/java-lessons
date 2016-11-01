@@ -1,0 +1,8 @@
+package ru.getjavajob.mamedov.ObserverPattern;
+
+/**
+ * Created by Ganzhenko on 27.10.2016.
+ */
+public interface DisplayElement {
+    void display();
+}

@@ -11,7 +11,7 @@ import ru.getjavajob.mamedov.homework3.validator.ValidatorImpl;
 public class Main {
     public static void main(String[] args) throws Exception {
         Product product = new Product();
-        product.setTitle("");
+        product.setTitle("ewtt");
         product.setCountOnStorage(10);
         product.setCount(2);
         product.setPrice(3.5);

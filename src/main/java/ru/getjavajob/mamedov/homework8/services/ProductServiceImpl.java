@@ -34,10 +34,11 @@ public class ProductServiceImpl implements ProductService {
 
     public List<Product> getSorted(SortMethod method) {
         int size = allProduct.size();
+        int i, j;
         switch(method) {
             case BUBBLE:
-                for (int i = 0; i < size - 1; i++) {
-                    for (int j = 0; j < size - i - 1; j++) {
+                for (i = 0; i < size - 1; i++) {
+                    for (j = 0; j < size - i - 1; j++) {
                         Comparable productA = allProduct.get(j);
                         Comparable productB = allProduct.get(j + 1);
                         if (productA.compareTo(productB) > 0){
@@ -48,10 +49,10 @@ public class ProductServiceImpl implements ProductService {
                 }
                 break;
             case FAST:
-
+                allProduct = qSort(allProduct, size, 0);
                 break;
             case SHELLA:
-                int i, j, step;
+                int step;
                 for (step = size / 2; step > 0; step /= 2) {
                     for (i = step; i < size; i++) {
                         Comparable productA = allProduct.get(i);
@@ -68,6 +69,30 @@ public class ProductServiceImpl implements ProductService {
                 break;
         }
         return allProduct;
+    }
+
+    private static List<Product> qSort(List<Product> list, int from, int to) {
+        if (from < to) {
+            int pivot = from;
+            int left = from + 1;
+            int right = to;
+            Product pivotValue = list.get(pivot);
+            while (left <= right) {
+                while (left <= to && pivotValue.compareTo(list.get(left)) >= 0) {
+                    left++;
+                }
+                while (right > from && pivotValue.compareTo(list.get(right)) < 0) {
+                    right--;
+                }
+                if (left < right) {
+                    Collections.swap(list, left, right);
+                }
+            }
+            Collections.swap(list, pivot, left - 1);
+            qSort(list, from, right - 1);
+            qSort(list, right + 1, to);
+        }
+        return list;
     }
 
 }
